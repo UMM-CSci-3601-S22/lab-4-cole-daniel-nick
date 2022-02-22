@@ -1,0 +1,60 @@
+name: Client
+
+on: [push]
+
+defaults:
+  run:
+    working-directory: ./client
+
+jobs:
+  ng-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Cache Node modules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Use Node.js 16
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16
+
+    - name: Install dependencies (npm ci)
+      run: npm ci
+
+    - name: Test (npm run test)
+      run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+
+  ng-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Cache Node modules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Use Node.js 16
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16
+
+    - name: Install dependencies (npm ci)
+      run: npm ci
+
+    - name: Lint (npm run lint)
+      run: npm run lint

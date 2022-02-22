@@ -1,0 +1,48 @@
+name: End-to-End
+
+on: [push]
+
+jobs:
+  ng-e2e:
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:4.2
+        ports:
+          - '27017-27019:27017-27019'
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Cache node modules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Cache Gradle artifacts (downloaded JARs, the wrapper, and any downloaded JDKs)
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+          ~/.gradle/jdks
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/.gradle/') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    - name: Use Node.js 16
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16
+
+    - name: Run e2e tests
+      uses: cypress-io/github-action@v2
+      with:
+        start: ${{ github.workspace }}/server/gradlew run -p ${{ github.workspace }}/server/
+        command: npm run e2e
+        working-directory: ./client

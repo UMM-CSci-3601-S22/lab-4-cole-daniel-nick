@@ -1,0 +1,106 @@
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+
+    <mat-card class="search-card">
+      <mat-card-title class="user-list-title">Users</mat-card-title>
+      <mat-card-content fxLayout="column" >
+
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+          <!-- Examples of filtering in Angular -->
+
+          <mat-form-field class="input-field">
+            <mat-label>Name</mat-label>
+            <input matInput data-test="userNameInput" placeholder="Filter by name"
+            [(ngModel)]="userName" (input)="updateFilter()">
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Company</mat-label>
+            <input matInput data-test="userCompanyInput" placeholder="Filter by company"
+            [(ngModel)]="userCompany" (input)="updateFilter()">
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+          <!-- Examples of filtering on the server -->
+
+          <mat-form-field class="input-field">
+            <mat-label>Age</mat-label>
+            <input matInput data-test="userAgeInput" type="number" placeholder="Filter by age"
+            min="0" max="200" [(ngModel)]="userAge" (input)="getUsersFromServer()">
+            <mat-hint>Filtered on server</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Role</mat-label>
+            <mat-select (selectionChange)="getUsersFromServer()" [(ngModel)]="userRole" data-test="userRoleSelect">
+              <mat-option>--</mat-option>
+              <mat-option value="admin">Admin</mat-option>
+              <mat-option value="editor">Editor</mat-option>
+              <mat-option value="viewer">Viewer</mat-option>
+            </mat-select>
+            <mat-hint>Filtered on server</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <br>
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+          <label>View type: </label>
+          <mat-radio-group aria-label="View type" [(ngModel)]="viewType" data-test="viewTypeRadio">
+            <mat-radio-button value="card">Card</mat-radio-button>
+            <mat-radio-button value="list">List</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredUsers; else usersError" >
+    <!-- Switch between card and list view based on the viewType variable, set above in the mar-radio-group -->
+    <div [ngSwitch]="viewType">
+
+      <!-- Card grid view -->
+      <div *ngSwitchCase="'card'" fxLayout="row wrap" fxLayoutGap="10px" class="user-cards-container">
+        <app-user-card simple="true" *ngFor="let user of filteredUsers" class="user-card" [user]="user" fxFlex="1 1 280px"></app-user-card>
+      </div>
+
+      <!-- List view -->
+      <mat-card *ngSwitchCase="'list'">
+        <mat-card-content>
+          <mat-nav-list class="user-nav-list">
+            <h3 mat-subheader>Users</h3>
+            <a mat-list-item *ngFor="let user of this.filteredUsers" [routerLink]="['/users', user._id]" class="user-list-item">
+              <img matListAvatar [src]="user.avatar" *ngIf="this.user.avatar">
+              <h3 matLine class="user-list-name"> {{user.name}} </h3>
+              <p matLine class="user-list-role"> {{user.role}} </p>
+            </a>
+          </mat-nav-list>
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+  </div>
+
+  <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
+  <ng-template #usersError>
+    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="user-error">
+      <mat-error>
+        There was a problem loading the users. Possibly the server is down or perhaps there are network
+        issues.
+      </mat-error>
+      <mat-error>
+        Please wait a bit and try again or start the server.
+      </mat-error>
+    </div>
+  </ng-template>
+
+</div>
+
+<button mat-fab class="add-user-fab" matTooltip="Add User" matTooltipPosition="left" routerLink="/users/new" data-test="addUserButton">
+    <mat-icon class="md-24" aria-label="Add User">add</mat-icon>
+</button>

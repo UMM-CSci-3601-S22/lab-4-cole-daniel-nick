@@ -1,0 +1,18 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.server.launchMode": "Standard",
+    "eslint.workingDirectories": [ "./client" ],
+    "eslint.validate": [
+      "javascript",
+      "typescript",
+      "html"
+    ],
+    "cSpell.words": [
+        "Bson",
+        "CSCI",
+        "Javalin",
+        "sidenav",
+        "todos"
+    ],
+    "angular.enable-experimental-ivy-prompt": false,
+}

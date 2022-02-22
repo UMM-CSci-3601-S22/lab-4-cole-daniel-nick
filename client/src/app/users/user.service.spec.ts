@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { User } from './user';
 import { UserService } from './user.service';
 
-describe('User service: ', () => {
+describe('UserService', () => {
   // A small collection of test users
   const testUsers: User[] = [
     {
@@ -242,19 +242,5 @@ describe('User service: ', () => {
         expect(user.company.indexOf(userCompany)).toBeGreaterThanOrEqual(0);
       });
     });
-  });
-
-  it('addUser() posts to api/users', () => {
-
-    userService.addUser(testUsers[1]).subscribe(
-      id => expect(id).toBe('testid')
-    );
-
-    const req = httpTestingController.expectOne(userService.userUrl);
-
-    expect(req.request.method).toEqual('POST');
-    expect(req.request.body).toEqual(testUsers[1]);
-
-    req.flush({id: 'testid'});
   });
 });

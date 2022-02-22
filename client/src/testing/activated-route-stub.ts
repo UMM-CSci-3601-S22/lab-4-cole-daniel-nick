@@ -1,7 +1,7 @@
 import { convertToParamMap, ParamMap, Params } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 
-// This code is modified from https://angular.io/guide/testing-components-scenarios#activatedroutestub
+// This code is taken from https://angular.io/guide/testing#activatedroutestub
 
 /**
  * An ActivateRoute test double with a `paramMap` observable.
@@ -10,20 +10,18 @@ import { ReplaySubject } from 'rxjs';
 export class ActivatedRouteStub {
   // Use a ReplaySubject to share previous values with subscribers
   // and pump new values into the `paramMap` observable
-  private subject = new ReplaySubject<ParamMap>(1);
+  private subject = new ReplaySubject<ParamMap>();
 
   /** The mock paramMap observable */
   // eslint-disable-next-line @typescript-eslint/member-ordering
   readonly paramMap = this.subject.asObservable();
 
   constructor(initialParams?: Params) {
-    if (initialParams) {
-      this.setParamMap(initialParams);
-    }
+    this.setParamMap(initialParams);
   }
 
   /** Set the paramMap observables's next value */
-  setParamMap(params: Params) {
+  setParamMap(params?: Params) {
     this.subject.next(convertToParamMap(params));
   }
 }

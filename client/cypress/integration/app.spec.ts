@@ -5,8 +5,12 @@ const page = new AppPage();
 describe('App', () => {
   beforeEach(() => page.navigateTo());
 
+  it('Should load', () => {
+    cy.document().should('exist');
+  });
+
   it('Should have the correct title', () => {
-    page.getAppTitle().should('contain', 'CSci 3601 Lab 4');
+    page.getAppTitle().should('contain', 'CSCI 3601 Lab 3');
   });
 
   describe('Sidenav', () => {

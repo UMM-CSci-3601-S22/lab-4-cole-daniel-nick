@@ -6,7 +6,6 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
@@ -36,7 +35,6 @@ const COMMON_IMPORTS: any[] = [
   MatDividerModule,
   MatRadioModule,
   MatSnackBarModule,
-  MatIconModule,
   BrowserAnimationsModule,
   RouterTestingModule,
 ];
@@ -49,7 +47,7 @@ let userList: UserListComponent;
 // This is called in a `beforeEach()` in each of the
 // `describe()` sections below.
 async function constructUserList() {
-  // Compile all the components in the test bed
+    // Compile all the components in the test bed
   // so that everything's ready to go.
   await TestBed.compileComponents();
   // Create a fixture of the UserListComponent. That
@@ -95,7 +93,7 @@ describe('UserListComponent', () => {
     expect(userList.serverFilteredUsers.some((user: User) => user.name === 'Chris')).toBe(true);
   });
 
-  it('contain a user named "Jamie"', () => {
+  it('contains a user named "Jamie"', () => {
     expect(userList.serverFilteredUsers.some((user: User) => user.name === 'Jamie')).toBe(true);
   });
 
@@ -113,8 +111,13 @@ describe('UserListComponent', () => {
  * to create mock objects (a service in this case) that be used for
  * testing. Here we set up the mock UserService (userServiceStub) so that
  * _always_ fails (throws an exception) when you request a set of users.
+ *
+ * So this doesn't really test anything meaningful in the context of our
+ * code (I certainly wouldn't copy it), but it does illustrate some nice
+ * testing tools. Hopefully it's useful as an example in that regard.
  */
 describe('Misbehaving User List', () => {
+
   let userServiceStub: {
     getUsers: () => Observable<User[]>;
     getUsersFiltered: () => Observable<User[]>;

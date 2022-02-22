@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User, UserRole } from './user';
-import { map } from 'rxjs/operators';
 
 /**
  * Service that provides the interface for getting information
@@ -41,7 +40,7 @@ export class UserService {
    *  from the server after a possibly substantial delay (because we're
    *  contacting a remote server over the Internet).
    */
-   getUsers(filters?: { role?: UserRole; age?: number; company?: string }): Observable<User[]> {
+  getUsers(filters?: { role?: UserRole; age?: number; company?: string }): Observable<User[]> {
     // `HttpParams` is essentially just a map used to hold key-value
     // pairs that are then encoded as "?key1=value1&key2=value2&…" in
     // the URL when we make the call to `.get()` below.
@@ -70,7 +69,7 @@ export class UserService {
    * @param id the ID of the desired user
    * @returns an `Observable` containing the resulting user.
    */
-   getUserById(id: string): Observable<User> {
+  getUserById(id: string): Observable<User> {
     return this.httpClient.get<User>(this.userUrl + '/' + id);
   }
 
@@ -87,26 +86,19 @@ export class UserService {
    * @param filters the map of key-value pairs used for the filtering
    * @returns an array of `Users` matching the given filters
    */
-   filterUsers(users: User[], filters: { name?: string; company?: string }): User[] {
+  filterUsers(users: User[], filters: { name?: string; company?: string }): User[] {
     let filteredUsers = users;
 
     if (filters.name) {
       filters.name = filters.name.toLowerCase();
-
       filteredUsers = filteredUsers.filter(user => user.name.toLowerCase().indexOf(filters.name) !== -1);
     }
 
     if (filters.company) {
       filters.company = filters.company.toLowerCase();
-
       filteredUsers = filteredUsers.filter(user => user.company.toLowerCase().indexOf(filters.company) !== -1);
     }
 
     return filteredUsers;
-  }
-
-  addUser(newUser: User): Observable<string> {
-    // Send post request to add a new user with the user data as the body.
-    return this.httpClient.post<{id: string}>(this.userUrl, newUser).pipe(map(res => res.id));
   }
 }

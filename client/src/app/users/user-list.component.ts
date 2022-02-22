@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subscription } from 'rxjs';
 import { User, UserRole } from './user';
 import { UserService } from './user.service';
 
@@ -14,13 +13,13 @@ import { UserService } from './user.service';
  * but in "real" projects you want to think about where it
  * makes the most sense to do the filtering.
  */
- @Component({
+@Component({
   selector: 'app-user-list-component',
   templateUrl: 'user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
   providers: []
 })
-export class UserListComponent implements OnInit, OnDestroy  {
+export class UserListComponent implements OnInit {
   // These are public so that tests can reference them (.spec.ts)
   public serverFilteredUsers: User[];
   public filteredUsers: User[];
@@ -30,8 +29,6 @@ export class UserListComponent implements OnInit, OnDestroy  {
   public userRole: UserRole;
   public userCompany: string;
   public viewType: 'card' | 'list' = 'card';
-  getUsersSub: Subscription;
-
 
   /**
    * This constructor injects both an instance of `UserService`
@@ -49,15 +46,10 @@ export class UserListComponent implements OnInit, OnDestroy  {
    * in the GUI.
    */
   getUsersFromServer() {
-    // Effectively ignore any previous unresolved calls to get the
-    // users from the service (i.e., from the server).
-    this.unsub();
-    // Request the users matching the currently specified role and age.
-    this.getUsersSub = this.userService.getUsers({
+    this.userService.getUsers({
       role: this.userRole,
       age: this.userAge
-    })
-    .subscribe(returnedUsers => {
+    }).subscribe(returnedUsers => {
       // This inner function passed to `subscribe` will be called
       // when the `Observable` returned by `getUsers()` has one
       // or more values to return. `returnedUsers` will be the
@@ -81,7 +73,7 @@ export class UserListComponent implements OnInit, OnDestroy  {
    * Called when the filtering information is changed in the GUI so we can
    * get an updated list of `filteredUsers`.
    */
-   public updateFilter(): void {
+  public updateFilter() {
     this.filteredUsers = this.userService.filterUsers(
       this.serverFilteredUsers, { name: this.userName, company: this.userCompany }
     );
@@ -89,27 +81,8 @@ export class UserListComponent implements OnInit, OnDestroy  {
 
   /**
    * Starts an asynchronous operation to update the users list
-   *
    */
   ngOnInit(): void {
     this.getUsersFromServer();
-  }
-
-  /**
-   * When this component is destroyed, we should unsubscribe to any
-   * outstanding requests.
-   */
-  ngOnDestroy(): void {
-    this.unsub();
-  }
-
-  /**
-   * Unsubscribe to any outstanding requests if there are any
-   * since this component wont' be around to display the results.
-   */
-  unsub(): void {
-    if (this.getUsersSub) {
-      this.getUsersSub.unsubscribe();
-    }
   }
 }

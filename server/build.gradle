@@ -1,0 +1,87 @@
+// Server side build.gradle
+// Builds the server side of the project
+
+plugins {
+  // Apply the application plugin to add support for building a CLI application
+  id 'application'
+
+  // Apply the checkstyle plugin to check for appropriate Java code style.
+  id 'checkstyle'
+
+  // Apply the Jacoco plugin to add suppport for JUnit test coverage reports.
+  id 'jacoco'
+}
+
+// Build and run the project with Java 11
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(11)
+  }
+}
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+  // Use Maven Central for resolving your dependencies.
+  // You can declare any Maven/Ivy/file repository here.
+  mavenCentral()
+}
+
+// External dependencies that our application utilizes
+dependencies {
+  // Javalin, a simple web framework for Java
+  implementation 'io.javalin:javalin:4.3.0'
+
+  // Mongo DB Driver for Java
+  implementation 'org.mongodb:mongodb-driver-sync:3.12.7'
+
+  // Jackson, a JSON library for Java
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.1'
+
+  // MongoJack, MongoDB integration for Jackson
+  implementation 'org.mongojack:mongojack:3.0.3'
+  // implementation 'org.mongojack:mongojack:4.0.2'
+
+  // Jackson support modules for Java 8 datatypes
+  implementation 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.12.1'
+  implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.12.1'
+  implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.1'
+
+  // Simple Logging Facade for Java
+  implementation 'org.slf4j:slf4j-simple:1.7.30'
+
+  // JUnit Jupiter API for testing.
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
+
+  // JUnit Jupiter Engine for testing.
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
+
+  testImplementation 'com.mockrunner:mockrunner-servlet:2.0.6'
+}
+
+application {
+  // Define the main class for the application
+  mainClass = 'umm3601.Server'
+}
+
+test {
+  // Use junit platform for unit tests
+  useJUnitPlatform()
+}
+
+wrapper {
+  distributionType = Wrapper.DistributionType.ALL
+}
+
+jacocoTestReport {
+  reports {
+    // This isn't strictly necessary, but the default reports
+    // location is buried pretty deep in the build directory,
+    // so this makes it easier to find.
+    html.destination file("${buildDir}/jacocoHtml")
+  }
+}
+
+tasks.withType(JavaCompile) {
+  // All of our source files are written in UTF-8
+  options.encoding = 'UTF-8'
+}

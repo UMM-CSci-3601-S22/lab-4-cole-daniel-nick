@@ -1,0 +1,22 @@
+component_depth: 1
+default_excludes: true
+languages:
+- name: java
+  production:
+    include:
+      - server/src/main/.*\.java
+  test:
+    include:
+      - server/src/test/.*\.java
+- name: typescript
+  production:
+    include:
+      - client/src/app/.*\.ts
+      - client/src/environments/.*\.ts
+    exclude:
+      - client/src/app/.*\.spec\.ts
+  test:
+    include:
+      - client/src/app/.*\.spec\.ts
+      - client/e2e/.*\.ts
+      - client/src/testing/.*\.ts

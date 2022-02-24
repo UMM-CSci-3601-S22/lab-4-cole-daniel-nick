@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.print.Doc;
+//import javax.print.Doc;
 
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerAddress;
@@ -61,7 +61,6 @@ import org.junit.jupiter.api.Test;
 public class MongoSpec {
 
   private MongoCollection<Document> userDocuments;
-  private MongoCollection<Document> todoDocuments;
 
   private static MongoClient mongoClient;
   private static MongoDatabase db;
@@ -109,30 +108,6 @@ public class MongoSpec {
             .append("email", "jamie@frogs.com"));
 
     userDocuments.insertMany(testUsers);
-
-    todoDocuments = db.getCollection("todos");
-    todoDocuments.drop();
-    List<Document> testTodos = new ArrayList<>();
-    testTodos.add(
-        new Document()
-            .append("owner", "Chris")
-            .append("body", "Random words that Chris would say")
-            .append("category", "gibberish")
-            .append("status", false));
-    testUsers.add(
-        new Document()
-            .append("owner", "Karen")
-            .append("body", "I am already calling the police")
-            .append("category", "bitchery")
-            .append("status", true));
-    testUsers.add(
-        new Document()
-            .append("owner", "Lucy")
-            .append("body", "*dog noises*")
-            .append("category", "woof")
-            .append("status", true));
-
-    todoDocuments.insertMany(testTodos);
   }
 
   private List<Document> intoList(MongoIterable<Document> documents) {

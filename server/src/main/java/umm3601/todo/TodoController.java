@@ -89,14 +89,20 @@ public class TodoController {
     }
 
     if (ctx.queryParamMap().containsKey(BODY_KEY)) {
-      filters.add(regex(BODY_KEY, Pattern.quote(ctx.queryParam(BODY_KEY)), "i"));
+      System.err.println(regex(BODY_KEY, Pattern.quote(ctx.queryParam(BODY_KEY)), "i"));
+      filters.add(regex("body", Pattern.quote(ctx.queryParam(BODY_KEY)), "i"));
     }
 
     if (ctx.queryParamMap().containsKey(CATEGORY_KEY)) {
       filters.add(regex(CATEGORY_KEY, Pattern.quote(ctx.queryParam(CATEGORY_KEY)), "i"));
     }
+
     if (ctx.queryParamMap().containsKey(STATUS_KEY)) {
-      filters.add(eq(STATUS_KEY, ctx.queryParam(STATUS_KEY)));
+      if (!ctx.queryParam(STATUS_KEY).equals("true") && !ctx.queryParam(STATUS_KEY).equals("false")) {
+        throw new BadRequestResponse("Illegal status sent");
+      }
+      Boolean targetStatus = ctx.queryParamAsClass(STATUS_KEY, Boolean.class).get();
+      filters.add(eq(STATUS_KEY, targetStatus));
     }
     // Sort the results. Use the `sortby` query param (default "name")
     // as the field to sort by, and the query param `sortorder` (default

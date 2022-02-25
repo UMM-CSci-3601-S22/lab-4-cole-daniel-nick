@@ -252,8 +252,25 @@ public class TodoControllerSpec {
     }
   }
 
+    @Test
+  public void canGetTodosWithOwner() throws IOException {
+
+    mockReq.setQueryString("owner=Karen");
+    Context ctx = mockContext("api/todos");
+    todoController.getTodos(ctx);
+
+    assertEquals(HttpCode.OK.getStatus(), mockRes.getStatus());
+    String result = ctx.resultString();
+    System.err.println(result);
+    Todo[] resultTodos = javalinJackson.fromJsonString(result, Todo[].class);
+    assertEquals(1, resultTodos.length);
+    for (Todo todo : resultTodos) {
+      assertEquals("Karen", todo.owner);
+    }
+  }
+
   @Test
-  public void canGetTodosWithGivenCompanyAndAge() throws IOException {
+  public void canGetTodosWithGivenContainsCategoryStatus() throws IOException {
 
     // mockReq.setQueryString("contains=dog"); //
     // "contains=dog&status=true&category=woof");

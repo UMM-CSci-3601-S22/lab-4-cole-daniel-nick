@@ -5,7 +5,12 @@
   </mat-card-header>
   <mat-card-content *ngIf="this.simple">
     <p>Category: <span class="todo-card-category">{{ todo.category }}</span></p>
-    <p>Status: <span class="todo-card-status" *ngIf="todo.status">Complete</span><span class="todo-card-status" *ngIf="!todo.status">Incomplete</span></p>
-    <p>Body:  <span class="todo-card-body">{{ todo.body }}</span></p>
+    <p>Status: <span class="todo-card-status" *ngIf="todo.status">Complete</span><span class="todo-card-status"
+        *ngIf="!todo.status">Incomplete</span></p>
+    <p>Body: <span class="todo-card-body">{{ todo.body }}</span></p>
   </mat-card-content>
+  <mat-card-actions>
+    <button mat-button data-test="viewProfileButton" *ngIf="this.simple" [routerLink]="['/todos', this.todo._id]">View
+      Profile</button>
+  </mat-card-actions>
 </mat-card>

@@ -127,7 +127,7 @@ public class TodoController {
         // Verify that the provided body is not blank
         .check(todo -> todo.body != null && todo.body.length() > 0, "Todo must have a non-empty todo body")
         // Verify that the status is either true or false
-        .check(todo -> todo.status == true || todo.status == false, "Todo must have a legal todo status")
+        .check(todo -> Boolean.valueOf(todo.status), "Todo must have a legal todo status")
         // Verify that the todo has a category that is not blank
         .check(todo -> todo.category != null && todo.category.length() > 0, "Todo must have a non-empty category name")
         .get();

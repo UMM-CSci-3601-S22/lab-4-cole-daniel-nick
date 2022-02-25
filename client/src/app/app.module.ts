@@ -27,6 +27,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { TodoCardComponent } from './todos/todo-card.component';
+import { TodoListComponent } from './todos/todo-list.component';
+import { TodoService } from './todos/todo.service';
 import { AddUserComponent } from './users/add-user.component';
 import { UserCardComponent } from './users/user-card.component';
 import { UserListComponent } from './users/user-list.component';
@@ -60,6 +63,8 @@ const MATERIAL_MODULES: any[] = [
     UserCardComponent,
     UserProfileComponent,
     AddUserComponent,
+    TodoCardComponent,
+    TodoListComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,7 +78,8 @@ const MATERIAL_MODULES: any[] = [
     LayoutModule,
   ],
   providers: [
-    UserService
+    UserService,
+    TodoService
   ],
   bootstrap: [AppComponent]
 })

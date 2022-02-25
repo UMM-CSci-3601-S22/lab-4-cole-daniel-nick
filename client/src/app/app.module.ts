@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -34,6 +34,7 @@ import { UserProfileComponent } from './users/user-profile.component';
 import { TodoListComponent } from './todos/todo-list.component';
 import { TodoCardComponent } from './todos/todo-card.component';
 import { TodoService } from './todos/todo.service';
+import { AddUserComponent } from './users/add-user.component';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -61,6 +62,7 @@ const MATERIAL_MODULES: any[] = [
     UserListComponent,
     UserCardComponent,
     UserProfileComponent,
+    AddUserComponent,
     TodoCardComponent,
     TodoListComponent,
   ],
@@ -69,6 +71,7 @@ const MATERIAL_MODULES: any[] = [
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     HttpClientModule,
     MATERIAL_MODULES,

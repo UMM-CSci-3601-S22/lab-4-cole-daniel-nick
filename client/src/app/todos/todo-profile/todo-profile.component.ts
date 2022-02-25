@@ -5,8 +5,8 @@ import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-todos-profile',
-  templateUrl: './todos-profile.component.html',
-  styleUrls: ['./todos-profile.component.scss']
+  templateUrl: './todo-profile.component.html',
+  styleUrls: ['./todo-profile.component.scss']
 })
 export class TodoProfileComponent implements OnInit {
 

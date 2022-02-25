@@ -1,13 +1,13 @@
 <mat-card class="user-card" *ngIf="this.user">
   <mat-card-header>
-    <div mat-card-avatar class="user-avatar" [style.background]="'url(' + this.user.avatar + ')'"></div>
+    <img mat-card-avatar [src]="this.user.avatar" class="user-avatar" *ngIf="this.user.avatar">
     <mat-card-title class="user-card-name">{{ this.user.name }}</mat-card-title>
     <mat-card-subtitle class="user-card-company">{{ this.user.company }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content *ngIf="!this.simple">
-    <p>Role: <span class="user-card-role">{{ user.role }}</span></p>
-    <p>Age: <span class="user-card-age">{{ user.age }}</span></p>
-    <p>Email: <a href="mailto:{{user.email}}" class="user-card-email">{{user.email}}</a></p>
+    <p>Role: <span class="user-card-role">{{ this.user.role }}</span></p>
+    <p>Age: <span class="user-card-age">{{ this.user.age }}</span></p>
+    <p>Email: <a href="mailto:{{this.user.email}}" class="user-card-email">{{this.user.email}}</a></p>
   </mat-card-content>
   <mat-card-actions>
     <button mat-button data-test="viewProfileButton" *ngIf="this.simple" [routerLink]="['/users', this.user._id]">View Profile</button>

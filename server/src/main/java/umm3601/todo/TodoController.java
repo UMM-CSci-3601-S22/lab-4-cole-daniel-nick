@@ -89,7 +89,9 @@ public class TodoController {
     }
 
     if (ctx.queryParamMap().containsKey(BODY_KEY)) {
-      System.err.println(regex(BODY_KEY, Pattern.quote(ctx.queryParam(BODY_KEY)), "i"));
+      if (ctx.queryParam(BODY_KEY).length() <= 0) {
+        throw new BadRequestResponse("Illegal status sent");
+      }
       filters.add(regex("body", Pattern.quote(ctx.queryParam(BODY_KEY)), "i"));
     }
 

@@ -252,6 +252,19 @@ public class TodoControllerSpec {
     }
   }
 
+  @Test
+  public void respondsAppropriatelyToIllegalBody() {
+
+    mockReq.setQueryString("contains=");
+    Context ctx = mockContext("api/todos");
+
+    // This should now throw a `ValidationException` because
+    // our request has an age that can't be parsed to a number.
+    assertThrows(io.javalin.http.BadRequestResponse.class, () -> {
+      todoController.getTodos(ctx);
+    });
+  }
+
     @Test
   public void canGetTodosWithOwner() throws IOException {
 

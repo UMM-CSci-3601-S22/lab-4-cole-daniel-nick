@@ -3,21 +3,21 @@
 
     <mat-card class="search-card">
       <mat-card-title class="todo-list-title">Todos</mat-card-title>
-      <mat-card-content fxLayout="column" >
+      <mat-card-content fxLayout="column">
 
         <div fxLayout="row wrap" fxLayoutGap="10px">
 
           <mat-form-field class="input-field">
             <mat-label>Owner</mat-label>
-            <input matInput id="todo-owner-input" placeholder="Filter by owner"
-            [(ngModel)]="todoOwner" (input)="updateFilter()">
+            <input matInput id="todo-owner-input" placeholder="Filter by owner" [(ngModel)]="todoOwner"
+              (input)="updateFilter()">
             <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
 
           <mat-form-field class="input-field">
             <mat-label>Body</mat-label>
-            <input matInput id="todo-body-input" placeholder="Filter by body contents"
-            [(ngModel)]="todoBody" (input)="updateFilter()">
+            <input matInput id="todo-body-input" placeholder="Filter by body contents" [(ngModel)]="todoBody"
+              (input)="updateFilter()">
             <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
         </div>
@@ -36,8 +36,8 @@
 
           <mat-form-field class="input-field">
             <mat-label>Category</mat-label>
-            <input matInput id="todo-category-input" placeholder="Filter by category"
-            [(ngModel)]="todoCategory" (input)="getTodosFromServer()">
+            <input matInput id="todo-category-input" placeholder="Filter by category" [(ngModel)]="todoCategory"
+              (input)="getTodosFromServer()">
             <mat-hint>Filtered on server</mat-hint>
           </mat-form-field>
         </div>
@@ -45,8 +45,8 @@
         <div fxLayout="row wrap" fxLayoutGap="10px">
           <mat-form-field class="input-field">
             <mat-label>Limit</mat-label>
-            <input matInput id="todo-limit-input" placeholder="Set amount of todos shown"
-            [(ngModel)]="todoLimit" (input)="getTodosFromServer()">
+            <input matInput id="todo-limit-input" placeholder="Set amount of todos shown" [(ngModel)]="todoLimit"
+              (input)="getTodosFromServer()">
             <mat-hint>Filtered on server</mat-hint>
           </mat-form-field>
         </div>
@@ -67,13 +67,14 @@
 </div>
 
 <div fxLayout="row">
-  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredTodos; else todosError" >
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredTodos; else todosError">
     <!-- Switch between card and list view based on the viewType variable, set above in the mat-radio-group -->
     <div [ngSwitch]="viewType">
 
       <!-- Card grid view -->
       <div *ngSwitchCase="'card'" fxLayout="row wrap" fxLayoutGap="10px" class="todo-cards-container">
-        <app-todo-card [simple]="true" *ngFor="let todo of filteredTodos" class="todo-card" [todo]="todo" fxFlex="1 1 280px"></app-todo-card>
+        <app-todo-card [simple]="true" *ngFor="let todo of filteredTodos" class="todo-card" [todo]="todo"
+          fxFlex="1 1 280px"></app-todo-card>
       </div>
 
       <!-- List view -->
@@ -81,9 +82,12 @@
         <mat-card-content>
           <mat-nav-list class="todo-nav-list">
             <h3 mat-subheader>Todos</h3>
-            <a mat-list-item *ngFor="let todo of this.filteredTodos" [routerLink]="['/todos', todo._id]" class="todo-list-item">
+            <a mat-list-item *ngFor="let todo of this.filteredTodos" [routerLink]="['/todos', todo._id]"
+              class="todo-list-item">
               <h3 matLine class="todo-list-owner"> {{todo.owner}} </h3>
-              <h4 matLine class="todo-list-status"> {{todo.status}} </h4>
+              <h4 matLine class="todo-list-status"><span class="todo-list-status"
+                  *ngIf="todo.status">Complete</span><span class="todo-list-status"
+                  *ngIf="!todo.status">Incomplete</span></h4>
               <h4 matLine class="todo-list-category"> {{todo.category}} </h4>
               <p matLine class="todo-list-body"> {{todo.body}} </p>
             </a>
@@ -108,4 +112,3 @@
   </ng-template>
 
 </div>
-

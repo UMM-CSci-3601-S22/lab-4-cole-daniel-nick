@@ -53,15 +53,22 @@
 
         <br>
 
-        <div fxLayout="row wrap" fxLayoutGap="10px">
+        <div style="display: flex"fxLayout="row wrap" fxLayoutGap="10px">
           <label>View type: </label>
           <mat-radio-group aria-label="View type" [(ngModel)]="viewType" data-test="viewTypeRadio">
             <mat-radio-button value="card">Card</mat-radio-button>
             <mat-radio-button value="list">List</mat-radio-button>
           </mat-radio-group>
+
         </div>
 
       </mat-card-content>
+      <mat-card-actions align="start">
+      <button mat-raised-button color="primary" style="margin-left: auto;" class="add-todo-button" matTooltip="Add Todo" routerLink="/todos/new" data-test="addTodoButton">
+        Add Todo
+      </button>
+    </mat-card-actions>
+
     </mat-card>
   </div>
 </div>

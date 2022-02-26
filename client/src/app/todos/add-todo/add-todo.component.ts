@@ -23,7 +23,6 @@ export class AddTodoComponent implements OnInit {
       { type: 'required', message: 'Owner is required' },
       { type: 'minlength', message: 'Owner must be at least 2 characters long' },
       { type: 'maxlength', message: 'Owner cannot be more than 50 characters long' },
-      { type: 'existingOwner', message: 'Owner has already been taken' }
     ],
 
     category: [
@@ -60,13 +59,6 @@ export class AddTodoComponent implements OnInit {
         // very long owners. This demonstrates that it's possible, though,
         // to have maximum length limits.
         Validators.maxLength(50),
-        (fc) => {
-          if (fc.value.toLowerCase() === 'abc123' || fc.value.toLowerCase() === '123abc') {
-            return ({ existingOwner: true });
-          } else {
-            return null;
-          }
-        },
       ])),
 
       // Since this is for a company, we need workers to be old enough to work, and probably not older than 200.

@@ -85,10 +85,10 @@
             <a mat-list-item *ngFor="let todo of this.filteredTodos" [routerLink]="['/todos', todo._id]"
               class="todo-list-item">
               <h3 matLine class="todo-list-owner"> {{todo.owner}} </h3>
-              <h4 matLine class="todo-list-status"><span class="todo-list-status"
-                  *ngIf="todo.status">Complete</span><span class="todo-list-status"
-                  *ngIf="!todo.status">Incomplete</span></h4>
               <h4 matLine class="todo-list-category"> {{todo.category}} </h4>
+              <p matLine class="todo-list-status"><span class="todo-list-status"
+                  *ngIf="todo.status">Complete</span><span class="todo-list-status"
+                  *ngIf="!todo.status">Incomplete</span></p>
               <p matLine class="todo-list-body"> {{todo.body}} </p>
             </a>
           </mat-nav-list>

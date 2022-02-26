@@ -14,16 +14,24 @@ export class TodoService {
   constructor(private httpClient: HttpClient) { }
 
   // Get the todos from the server, filtered by the information on the filters map
-  getTodos(filters?: { category?: string; status?: boolean }): Observable<Todo[]> {
+  getTodos(filters?: { category?: string; status?: boolean; sortby?: string; sortorder?: string }): Observable<Todo[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
-      // not working
+      // working
       if (filters.category) {
         httpParams = httpParams.set('category', filters.category);
       }
       // working
       if (filters.status) {
         httpParams = httpParams.set('status', filters.status);
+      }
+
+      if (filters.sortby) {
+        httpParams = httpParams.set('sortby', filters.sortby);
+      }
+
+      if (filters.sortorder) {
+        httpParams = httpParams.set('sortorder', filters.sortorder);
       }
     }
     // Send the HTTP GET request with the given URL and parameters.

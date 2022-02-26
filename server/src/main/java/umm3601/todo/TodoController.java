@@ -120,6 +120,9 @@ public class TodoController {
    *
    * @param ctx a Javalin HTTP context
    */
+   // added SupressWarnings for status check, simplified version that checkstyle suggested would not work
+   // The check is needed to ensure the correct boolean values are coming from the client
+  @SuppressWarnings("checkstyle:SimplifyBooleanExpression")
   public void addNewTodo(Context ctx) {
     Todo newTodo = ctx.bodyValidator(Todo.class)
         // Verify that the todo has a name that is not blank
@@ -127,11 +130,10 @@ public class TodoController {
         // Verify that the provided body is not blank
         .check(todo -> todo.body != null && todo.body.length() > 0, "Todo must have a non-empty todo body")
         // Verify that the status is either true or false
-        .check(todo -> Boolean.valueOf(todo.status), "Todo must have a legal todo status")
+        .check(todo -> todo.status == true || todo.status == false, "Todo must have a legal todo status")
         // Verify that the todo has a category that is not blank
         .check(todo -> todo.category != null && todo.category.length() > 0, "Todo must have a non-empty category name")
         .get();
-
     todoCollection.insertOne(newTodo);
     ctx.status(HttpCode.OK);
     ctx.json(Map.of("id", newTodo._id));

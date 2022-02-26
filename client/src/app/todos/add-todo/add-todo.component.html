@@ -11,7 +11,7 @@ is potentially helpful and contributed to the shaping of this example -->
         <mat-card-content fxLayout="column">
           <mat-form-field>
             <mat-label>Owner</mat-label>
-            <input matInput placeholder="Owner" formControlOwner="owner"
+            <input matInput placeholder="Owner" formControlName="owner"
                   required>
             <mat-error *ngFor="let validation of addTodoValidationMessages.owner">
               <mat-error class="error-message" data-test="ownerError"
@@ -24,7 +24,7 @@ is potentially helpful and contributed to the shaping of this example -->
           <mat-form-field>
             <mat-label>Category</mat-label>
             <input matInput placeholder="Category"
-                  formControlOwner="category" required>
+                  formControlName="category" required>
             <mat-error *ngFor="let validation of addTodoValidationMessages.category">
               <mat-error class="error-message" data-test="categoryError"
                         *ngIf="addTodoForm.get('category').hasError(validation.type) && (addTodoForm.get('category').dirty || addTodoForm.get('category').touched)">
@@ -36,7 +36,7 @@ is potentially helpful and contributed to the shaping of this example -->
           <mat-form-field>
             <mat-label>Body</mat-label>
             <input matInput placeholder="Body"
-                  formControlOwner="body" required>
+                  formControlName="body" required>
                   <mat-error *ngFor="let validation of addTodoValidationMessages.body">
                     <mat-error class="error-message" data-test="bodyError"
                               *ngIf="addTodoForm.get('body').hasError(validation.type) && (addTodoForm.get('body').dirty || addTodoForm.get('body').touched)">
@@ -47,7 +47,7 @@ is potentially helpful and contributed to the shaping of this example -->
 
           <mat-form-field>
             <mat-label>Status</mat-label>
-            <mat-select required>
+            <mat-select required formControlName='status'>
               <mat-option value="true">Complete</mat-option>
               <mat-option value="false">Incomplete</mat-option>
             </mat-select>

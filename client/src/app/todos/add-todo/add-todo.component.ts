@@ -92,7 +92,7 @@ export class AddTodoComponent implements OnInit {
 
   submitForm() {
     this.todoService.addTodo(this.addTodoForm.value).subscribe(newID => {
-      this.snackBar.open('Added Todo ' + this.addTodoForm.value.owner, null, {
+      this.snackBar.open('Added Todo for' + this.addTodoForm.value.owner, null, {
         duration: 2000,
       });
       this.router.navigate(['/todos/', newID]);

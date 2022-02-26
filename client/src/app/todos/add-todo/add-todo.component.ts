@@ -16,26 +16,26 @@ export class AddTodoComponent implements OnInit {
 
   todo: Todo;
 
-    // not sure if this owner is magical and making it be found or if I'm missing something,
+  // not sure if this owner is magical and making it be found or if I'm missing something,
   // but this is where the red text that shows up (when there is invalid input) comes from
   addTodoValidationMessages = {
     owner: [
-      {type: 'required', message: 'Owner is required'},
-      {type: 'minlength', message: 'Owner must be at least 2 characters long'},
-      {type: 'maxlength', message: 'Owner cannot be more than 50 characters long'},
-      {type: 'existingOwner', message: 'Owner has already been taken'}
+      { type: 'required', message: 'Owner is required' },
+      { type: 'minlength', message: 'Owner must be at least 2 characters long' },
+      { type: 'maxlength', message: 'Owner cannot be more than 50 characters long' },
+      { type: 'existingOwner', message: 'Owner has already been taken' }
     ],
 
     category: [
-      {type: 'required', message: 'Category is required'},
-      {type: 'minlength', message: 'Category must be at least 2 characters long'},
-      {type: 'maxlength', message: 'Category cannot be more than 50 characters long'},
+      { type: 'required', message: 'Category is required' },
+      { type: 'minlength', message: 'Category must be at least 2 characters long' },
+      { type: 'maxlength', message: 'Category cannot be more than 50 characters long' },
     ],
 
     body: [
-      {type: 'required', message: 'body is required'},
-      {type: 'minlength', message: 'body must be at least 2 characters long'},
-      {type: 'maxlength', message: 'body cannot be more than 500 characters long'},
+      { type: 'required', message: 'body is required' },
+      { type: 'minlength', message: 'body must be at least 2 characters long' },
+      { type: 'maxlength', message: 'body cannot be more than 500 characters long' },
     ],
 
     status: [
@@ -62,7 +62,7 @@ export class AddTodoComponent implements OnInit {
         Validators.maxLength(50),
         (fc) => {
           if (fc.value.toLowerCase() === 'abc123' || fc.value.toLowerCase() === '123abc') {
-            return ({existingOwner: true});
+            return ({ existingOwner: true });
           } else {
             return null;
           }
@@ -73,7 +73,7 @@ export class AddTodoComponent implements OnInit {
       body: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(1),
-        Validators.maxLength(500),
+        Validators.maxLength(300),
       ])),
 
       // We don't care much about what is in the company field, so we just add it here as part of the form

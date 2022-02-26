@@ -82,6 +82,7 @@
         <mat-card-content>
           <mat-nav-list class="todo-nav-list">
             <h3 mat-subheader>Todos</h3>
+            <mat-divider></mat-divider>
             <a mat-list-item *ngFor="let todo of this.filteredTodos" [routerLink]="['/todos', todo._id]"
               class="todo-list-item">
               <h3 matLine class="todo-list-owner"> {{todo.owner}} </h3>

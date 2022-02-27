@@ -1,0 +1,16 @@
+<mat-card class="todo-card" *ngIf="this.todo">
+  <mat-card-header>
+    <mat-icon class="todo-card-status" *ngIf="todo.status">done</mat-icon>
+    <mat-icon class="todo-card-status" *ngIf="!todo.status">close</mat-icon>
+    <mat-card-title class="todo-card-owner">{{ this.todo.owner }}</mat-card-title>
+    <mat-card-subtitle class="todo-card-_id">{{ this.todo._id }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Category: <span class="todo-card-category">{{ todo.category }}</span></p>
+    <p><span class="todo-card-body">{{ todo.body }}</span></p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button data-test="viewTodoButton" *ngIf="this.simple" [routerLink]="['/todos', this.todo._id]">View
+      Todo</button>
+  </mat-card-actions>
+</mat-card>

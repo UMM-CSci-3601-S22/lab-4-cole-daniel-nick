@@ -23,9 +23,7 @@ describe('Add todo', () => {
     page.addTodoButton().should('be.disabled');
     page.getFormField('body').type('test testing');
     page.addTodoButton().should('be.disabled');
-    page.getFormField('status').click().blur();
-    page.addTodoButton().should('be.disabled');
-    page.getFormField('status').click().select('false');
+    page.selectMatSelectValue(page.getFormField('status'), 'false');
     // all the required fields have valid input, then it should be enabled
     page.addTodoButton().should('be.enabled');
   });
@@ -82,10 +80,10 @@ describe('Add todo', () => {
     it('Should go to the right page, and have the right info', () => {
       const todo: Todo = {
         _id: null,
-        owner: 'Test Todo',
+        owner: 'Daniel',
         category: 'Test',
-        body: 'Test Testing',
-        status: false
+        body: 'Can I add this?',
+        status: true
       };
 
       page.addTodo(todo);
@@ -104,30 +102,6 @@ describe('Add todo', () => {
       cy.get('.mat-simple-snackbar').should('contain', `Added Todo for ${todo.owner}`);
     });
 
-    it('Should fail with no body', () => {
-      const todo: Todo = {
-        _id: null,
-        owner: 'Test Todo',
-        category: 'Test',
-        body: '', // The body being set to null means nothing will be typed for it
-        status: true
-      };
-
-      page.addTodo(todo);
-
-      // We should get an error message
-      cy.get('.mat-simple-snackbar').should('contain', `Failed to add the todo`);
-
-      // We should have stayed on the new todo page
-      cy.url()
-        .should('not.match', /\/todos\/[0-9a-fA-F]{24}$/)
-        .should('match', /\/todos\/new$/);
-
-      // The things we entered in the form should still be there
-      page.getFormField('owner').should('have.value', todo.owner);
-      page.getFormField('category').should('have.value', todo.category);
-      page.getFormField('status').should('have.value', 'true');
-    });
   });
 
 });

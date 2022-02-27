@@ -1,3 +1,5 @@
+type TodoStatus = 'true' | 'false';
+
 export class TodoListPage {
   navigateTo() {
     return cy.visit('/todos');
@@ -18,7 +20,7 @@ export class TodoListPage {
    * @returns an iterable (`Cypress.Chainable`) containing all
    *   the `app-todo-card` DOM elements.
    */
-   getTodoCards() {
+  getTodoCards() {
     return cy.get('.todo-cards-container app-todo-card');
   }
 
@@ -47,7 +49,14 @@ export class TodoListPage {
    *
    * @param value The status *value* to select, this is what's found in the mat-option "value" attribute.
    */
-  selectStatus(value: string) {
-    return cy.get('[data-test=todoStatusSelect]').click().get(`mat-option[value="${value}"]`).click();
+  selectStatus(value: TodoStatus) {
+    // Find and click the drop down
+    return cy.get('[data-test=todoStatusSelect]').click()
+      // Select and click the desired value from the resulting menu
+      .get(`mat-option[value="${value}"]`).click();
+  }
+
+  addTodoButton() {
+    return cy.get('[data-test=addTodoButton]');
   }
 }

@@ -88,18 +88,18 @@ describe('Todo list', () => {
   });
 
   it('Should select a status and check that it returned correct elements', () => {
-    // Filter for status 'true');
-    page.selectStatus('complete');
-
     // Choose the view type "List"
     page.changeView('list');
+
+    // Filter for status 'complete');
+    page.selectStatus('true');
 
     // Some of the todos should be listed
     page.getTodoListItems().should('exist');
 
     // All of the todo list items that show should have the status we are looking for
     page.getTodoListItems().each($todo => {
-      cy.wrap($todo).find('.todo-list-status').should('have.text', ' true '); // this seems fragile since the spaces are expected
+      cy.wrap($todo).find('.todo-list-status').should('have.text', 'Complete');
     });
   });
 

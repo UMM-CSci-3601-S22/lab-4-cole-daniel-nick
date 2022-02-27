@@ -47,13 +47,13 @@
             <mat-label>Limit</mat-label>
             <input matInput id="todo-limit-input" placeholder="Set amount of todos shown" [(ngModel)]="todoLimit"
               (input)="getTodosFromServer()">
-            <mat-hint>Filtered on server</mat-hint>
+            <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
         </div>
 
         <br>
 
-        <div style="display: flex"fxLayout="row wrap" fxLayoutGap="10px">
+        <div style="display: flex" fxLayout="row wrap" fxLayoutGap="10px">
           <label>View type: </label>
           <mat-radio-group aria-label="View type" [(ngModel)]="viewType" data-test="viewTypeRadio">
             <mat-radio-button value="card">Card</mat-radio-button>
@@ -64,10 +64,11 @@
 
       </mat-card-content>
       <mat-card-actions align="start">
-      <button mat-raised-button color="primary" style="margin-left: auto;" class="add-todo-button" matTooltip="Add Todo" routerLink="/todos/new" data-test="addTodoButton">
-        Add Todo
-      </button>
-    </mat-card-actions>
+        <button mat-raised-button color="primary" style="margin-left: auto;" class="addTodoButton" matTooltip="Add Todo"
+          routerLink="/todos/new" data-test="addTodoButton">
+          Add Todo
+        </button>
+      </mat-card-actions>
 
     </mat-card>
   </div>
@@ -94,9 +95,8 @@
               class="todo-list-item">
               <h3 matLine class="todo-list-owner"> {{todo.owner}} </h3>
               <h4 matLine class="todo-list-category"> {{todo.category}} </h4>
-              <p matLine class="todo-list-status"><span class="todo-list-status"
-                  *ngIf="todo.status">Complete</span><span class="todo-list-status"
-                  *ngIf="!todo.status">Incomplete</span></p>
+              <p matLine><span class="todo-list-status" *ngIf="todo.status">Complete</span><span
+                  class="todo-list-status" *ngIf="!todo.status">Incomplete</span></p>
               <p matLine class="todo-list-body"> {{todo.body}} </p>
               <mat-divider></mat-divider>
             </a>

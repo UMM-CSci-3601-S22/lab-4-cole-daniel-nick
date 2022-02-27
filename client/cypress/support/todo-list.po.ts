@@ -35,6 +35,11 @@ export class TodoListPage {
     return cy.get('.todo-nav-list .todo-list-item');
   }
 
+
+  clickViewTodo(card: Cypress.Chainable<JQuery<HTMLElement>>) {
+    return card.find<HTMLButtonElement>('[data-test=viewTodoButton]').click();
+  }
+
   /**
    * Change the view of todos.
    *

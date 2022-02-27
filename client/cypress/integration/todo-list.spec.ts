@@ -103,4 +103,33 @@ describe('Todo list', () => {
     });
   });
 
+  it('Should click view todo on a todo and go to the right URL', () => {
+    page.getTodoCards().first().then((card) => {
+      const firstTodoOwner = card.find('.todo-card-owner').text();
+      const firstTodoCategory = card.find('.todo-card-category').text();
+
+      // When the view profile button on the first user card is clicked, the URL should have a valid mongo ID
+      page.clickViewTodo(page.getTodoCards().first());
+
+      // The URL should be '/todos/' followed by a mongo ID
+      cy.url().should('match', /\/todos\/[0-9a-fA-F]{24}$/);
+
+      // On this profile page we were sent to, the name and company should be correct
+      cy.get('.todo-card-owner').first().should('have.text', firstTodoOwner);
+      cy.get('.todo-card-category').first().should('have.text', firstTodoCategory);
+    });
+  });
+
+  it('Should click add todo and go to the right URL', () => {
+    // Click on the button for adding a new todo
+    page.addTodoButton().click();
+
+    // The URL should end with '/users/new'
+    cy.url().should(url => expect(url.endsWith('/todos/new')).to.be.true);
+
+    // On the page we were sent to, We should see the right title
+    cy.get('.add-todo-title').should('have.text', 'New Todo');
+  });
+
+
 });
